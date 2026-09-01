@@ -1,0 +1,32 @@
+{
+  "events": [
+    {
+      "artistName": "The Midnight",
+      "city": "Los Angeles",
+      "country": "US",
+      "eventId": "b2b-midnight-la",
+      "eventName": "The Midnight Live",
+      "eventUrl": "https://example.test/b2b/events/b2b-midnight-la",
+      "listings": [
+        {
+          "availability": "active",
+          "currency": "USD",
+          "listingId": "b2b-listing-1",
+          "listingUrl": "https://example.test/b2b/listings/b2b-listing-1",
+          "quantity": 4,
+          "row": "12",
+          "seatDetails": "Seats 1–4",
+          "section": "North Terrace",
+          "totalPrice": 436,
+          "unitPrice": 109
+        }
+      ],
+      "observedAt": "2026-08-31T12:04:00.000Z",
+      "startsAt": "2026-10-03T03:00:00.000Z",
+      "stateRegion": "CA",
+      "timezone": "America/Los_Angeles",
+      "venueName": "The Greek Theatre"
+    }
+  ]
+}
+

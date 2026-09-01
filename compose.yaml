@@ -1,0 +1,83 @@
+name: flipwire
+
+x-app: &app
+  build: .
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    DATABASE_URL: postgresql://flipwire:flipwire@postgres:5432/flipwire
+    FLIPWIRE_RAW_STORAGE_ROOT: /app/raw-data
+  volumes:
+    - raw-data:/app/raw-data
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: flipwire
+      POSTGRES_PASSWORD: flipwire
+      POSTGRES_USER: flipwire
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flipwire -d flipwire"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "${FLIPWIRE_POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  postgres-test:
+    image: postgres:17-alpine
+    profiles: ["test"]
+    environment:
+      POSTGRES_DB: flipwire_test
+      POSTGRES_PASSWORD: flipwire
+      POSTGRES_USER: flipwire
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flipwire -d flipwire_test"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "${FLIPWIRE_TEST_POSTGRES_PORT:-55432}:5432"
+    tmpfs:
+      - /var/lib/postgresql/data
+
+  migrate:
+    <<: *app
+    command: npm run db:migrate
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  web:
+    <<: *app
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    ports:
+      - "${FLIPWIRE_WEB_PORT:-3000}:3000"
+    restart: unless-stopped
+
+  scheduler:
+    <<: *app
+    command: npm run scheduler
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  worker:
+    <<: *app
+    command: npm run worker
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  raw-data:

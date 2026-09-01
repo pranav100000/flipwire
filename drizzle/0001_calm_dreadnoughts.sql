@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "review_items_open_identity_unique" ON "review_items" USING btree ("source","source_event_id","kind","status");

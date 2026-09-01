@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "ingestion_jobs_active_source_unique" ON "ingestion_jobs" USING btree ("source") WHERE "ingestion_jobs"."status" in ('pending', 'running');

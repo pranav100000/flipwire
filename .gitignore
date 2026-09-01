@@ -1,0 +1,15 @@
+.DS_Store
+.env
+.next/
+.vitest-attachments/
+.pytest_cache/
+.venv/
+__pycache__/
+coverage/
+dist/
+node_modules/
+playwright-report/
+raw-data/
+test-results/
+tests/__screenshots__/
+*.tsbuildinfo

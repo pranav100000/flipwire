@@ -1,0 +1,31 @@
+{
+  "events": [
+    {
+      "artist": "The Midnight",
+      "city": "Los Angeles",
+      "country": "US",
+      "event": "The Midnight Live",
+      "event_id": "tp-midnight-la",
+      "event_url": "https://example.test/tickpick/events/tp-midnight-la",
+      "listings": [
+        {
+          "currency": "USD",
+          "id": "tp-listing-1",
+          "quantity": 2,
+          "row": "B",
+          "section": "A Left",
+          "status": "active",
+          "total_price": 240,
+          "unit_price": 120,
+          "url": "https://example.test/tickpick/listings/tp-listing-1"
+        }
+      ],
+      "observed_at": "2026-08-31T12:02:00.000Z",
+      "starts_at": "2026-10-03T03:00:00.000Z",
+      "state": "CA",
+      "timezone": "America/Los_Angeles",
+      "venue": "Greek Theatre"
+    }
+  ]
+}
+

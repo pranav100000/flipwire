@@ -1,0 +1,31 @@
+{
+  "events": [
+    {
+      "artist_name": "The Midnight",
+      "city": "Los Angeles",
+      "country": "US",
+      "event_name": "The Midnight Live",
+      "historical_prices": [
+        { "metric": "get_in", "observed_at": "2026-08-30T12:00:00.000Z", "value": 92 }
+      ],
+      "id": "td-midnight-la",
+      "market": {
+        "forecast_text": "Stable",
+        "forecast_value": 86,
+        "get_in_price": 88,
+        "high_price": 420,
+        "inventory_count": 310,
+        "listing_count": 98,
+        "low_price": 88,
+        "median_price": 166
+      },
+      "observed_at": "2026-08-31T12:00:00.000Z",
+      "starts_at": "2026-10-03T03:00:00.000Z",
+      "state_region": "CA",
+      "timezone": "America/Los_Angeles",
+      "url": "https://example.test/ticket-data/events/td-midnight-la",
+      "venue_name": "The Greek Theatre"
+    }
+  ]
+}
+

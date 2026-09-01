@@ -1,0 +1,50 @@
+{
+  "name": "flipwire",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build": "next build",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "dev": "next dev",
+    "lint": "eslint . --max-warnings=0",
+    "scheduler": "tsx src/processes/scheduler.ts",
+    "seed": "tsx src/processes/seed.ts",
+    "start": "next start",
+    "test": "vitest run",
+    "test:db:up": "docker compose --profile test up -d postgres-test",
+    "test:ui": "vitest run --config vitest.browser.config.ts",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "worker": "tsx src/processes/worker.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.2",
+    "next": "16.3.3",
+    "postgres": "3.4.9",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tsx": "4.23.13",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/node": "24.3.1",
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
+    "@vitest/browser-playwright": "4.1.11",
+    "@vitest/coverage-v8": "4.1.11",
+    "drizzle-kit": "0.31.10",
+    "eslint": "9.35.0",
+    "eslint-config-next": "16.3.3",
+    "typescript": "5.9.3",
+    "vite": "8.2.2",
+    "vitest": "4.1.11",
+    "vitest-browser-react": "2.2.0"
+  }
+}

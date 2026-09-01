@@ -1,0 +1,11 @@
+.env
+.git
+.next
+.vitest-attachments
+.venv
+coverage
+node_modules
+playwright-report
+raw-data
+test-results
+tests/__screenshots__
