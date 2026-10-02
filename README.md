@@ -55,6 +55,10 @@ npm run worker
 npm run scheduler
 ```
 
+## Aether workspace
+
+`.aether/environment.json` prepares dependencies, starts PostgreSQL, applies migrations, seeds the fixture catalog, and starts the dashboard on port 3000 for each task. Its authenticated preview hook uses a short-lived signed bootstrap URL to sign into the seeded development operator session automatically. The bootstrap route is disabled outside `NODE_ENV=development`.
+
 ## Live connector configuration
 
 The repository implements the source adapters, retry/timeout/rate-limit policy, validation, raw retention, normalization, and ingestion lifecycle. The checked-in fixture schemas are the executable source contracts. Actual vendor endpoints and credentials were not present in the PRD, so they are deliberately not guessed.

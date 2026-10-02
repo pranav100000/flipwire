@@ -1,0 +1,18 @@
+{
+  "setup": "npm ci",
+  "docker_prewarm": "docker compose pull postgres",
+  "setup_on_boot": "if [ -f ./.env ]; then set -a; . ./.env; set +a; fi && docker compose up -d --wait postgres && export FLIPWIRE_RAW_STORAGE_ROOT=\"$PWD/raw-data\" && npm run db:migrate && npm run seed",
+  "terminals": [
+    {
+      "name": "FlipWire",
+      "command": "FLIPWIRE_RAW_STORAGE_ROOT=\"$PWD/raw-data\" /usr/bin/node node_modules/next/dist/bin/next dev --hostname 0.0.0.0 --port 3000",
+      "port": 3000
+    }
+  ],
+  "previews": {
+    "3000": {
+      "auth_command": "/usr/bin/node --import tsx scripts/preview-auth.ts",
+      "auto": true
+    }
+  }
+}
