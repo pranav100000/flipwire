@@ -14,6 +14,11 @@ import {
   readOperatorSessionToken,
   sessionCookie,
 } from "@/lib/auth";
+import {
+  createPreviewAuthSignature,
+  isValidPreviewAuthSignature,
+  PREVIEW_AUTH_TTL_SECONDS,
+} from "@/lib/preview-auth";
 import { displayDate, displayMoney, displayRelativeFreshness, displayValue } from "@/lib/presentation";
 import { isMainModule, logProcessEvent, runUntilStopped } from "@/lib/process-runtime";
 
@@ -318,6 +323,25 @@ describe("operator session boundary", () => {
     expect(sessionCookie("token", false)).not.toContain("Secure");
     expect(expiredSessionCookie(true)).toContain("Max-Age=0");
     expect(expiredSessionCookie(false)).not.toContain("Secure");
+  });
+});
+
+describe("authenticated preview bootstrap", () => {
+  const secret = "preview-secret-key-which-is-at-least-32-chars";
+  const nowSeconds = 1_800_000_000;
+
+  it("accepts a short-lived signed bootstrap and rejects invalid signatures or windows", () => {
+    const expiresAt = nowSeconds + PREVIEW_AUTH_TTL_SECONDS;
+    const signature = createPreviewAuthSignature(expiresAt, secret);
+
+    expect(isValidPreviewAuthSignature(expiresAt, signature, secret, nowSeconds)).toBe(true);
+    expect(isValidPreviewAuthSignature(expiresAt, signature, "wrong-secret", nowSeconds)).toBe(false);
+    expect(isValidPreviewAuthSignature(expiresAt, "invalid", secret, nowSeconds)).toBe(false);
+    expect(isValidPreviewAuthSignature(nowSeconds, signature, secret, nowSeconds)).toBe(false);
+    expect(
+      isValidPreviewAuthSignature(nowSeconds + PREVIEW_AUTH_TTL_SECONDS + 1, signature, secret, nowSeconds),
+    ).toBe(false);
+    expect(isValidPreviewAuthSignature(Number.NaN, signature, secret, nowSeconds)).toBe(false);
   });
 });
 
